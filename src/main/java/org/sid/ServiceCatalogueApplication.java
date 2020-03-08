@@ -1,52 +1,38 @@
 package org.sid;
 
-import java.util.ArrayList;
-import java.util.stream.Stream;
-
-import org.sid.dao.CategoryRepository;
-import org.sid.dao.ProductRepository;
-import org.sid.entities.Category;
-import org.sid.entities.Product;
+import org.sid.dao.ItemRepository;
+import org.sid.dao.TripRepository;
+import org.sid.entities.Item;
+import org.sid.entities.Trip;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-public class ServiceCatalogueApplication {
+public class ServiceCatalogueApplication implements CommandLineRunner {
+	@Autowired
+	private TripRepository tripRepository;
 
-    public static void main(String[] args) {
+	@Autowired
+	private ItemRepository itemRepository;
+
+
+	public static void main(String[] args) {
 	SpringApplication.run(ServiceCatalogueApplication.class, args);
     }
+	@Override
+	public void run(String... args) throws Exception {
 
-    @Bean
-    CommandLineRunner start(CategoryRepository categoryRepository, ProductRepository productRepository) {
-	return args -> {
-	    categoryRepository.deleteAll();
-	    Stream.of("C1 Ordinateur", "C2 Imprimantes").forEach(c -> {
-		categoryRepository.save(new Category(c.split(" ")[0], c.split(" ")[1], new ArrayList<>()));
+		Trip trip1=tripRepository.save(new Trip("USA TRIP"));
+		Trip trip2=tripRepository.save(new Trip("EU TRIP"));
+		Item item1 =itemRepository.save(new Item("Papiers",trip1));
+		Item item2 =itemRepository.save(new Item("Chargeurs",trip1));
+		Item item3 =itemRepository.save(new Item("Papiers",trip2));
+		Item item4 =itemRepository.save(new Item("Chargeurs",trip2));
+		System.out.println("l'application a démarré !!!");
 
-	    });
-	    categoryRepository.findAll().forEach(System.out::println);
-	    productRepository.deleteAll();
+	}
 
-	    Category c1 = categoryRepository.findById("C1").get();
-	    Stream.of("P1", "P2", "P3", "P4").forEach(name -> {
-		Product p = productRepository.save(new Product("P1", name, Math.random() * 1000, c1));
-		c1.getProducts().add(p);
-		categoryRepository.save(c1);
-	    });
-
-	    Category c2 = categoryRepository.findById("C2").get();
-	    Stream.of("P5", "P6", "P7", "P8").forEach(name -> {
-		Product p = productRepository.save(new Product("P1", name, Math.random() * 1000, c2));
-		c2.getProducts().add(p);
-		categoryRepository.save(c2);
-	    });
-
-	    productRepository.findAll().forEach(System.out::println);
-
-	};
-    }
 
 }
