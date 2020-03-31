@@ -8,24 +8,24 @@ import javax.persistence.*;
 @Entity
 public class ArticleEntity {
     @Id
-    @Column(name = "id_item")
+    @Column(name = "id_article")
     @GeneratedValue
-    private Long idIitem;
+    private Long idArticle;
 
-    @Column(name = "nom_item")
-    private String nomItem;
+    @Column(name = "nom_article")
+    private String nomArticle;
 
     @Column(name = "belongs_to")
     private String belongsTo;
 
     @JsonBackReference
     @ManyToOne
-    @JoinColumn(name = "CODE_TRIP")
+    @JoinColumn(name = "CODE_VOYAGE")
     private VoyageEntity voyageEntity;
 
-    public ArticleEntity(String nomItem, VoyageEntity voyageEntity) {
+    public ArticleEntity(String nomArticle, VoyageEntity voyageEntity) {
         super();
-        this.nomItem = nomItem;
+        this.nomArticle = nomArticle;
         this.voyageEntity = voyageEntity;
     }
 
@@ -42,12 +42,12 @@ public class ArticleEntity {
         this.belongsTo = belongsTo;
     }
 
-    public String getNomItem() {
-        return nomItem;
+    public String getNomArticle() {
+        return nomArticle;
     }
 
-    public void setNomItem(String nomItem) {
-        this.nomItem = nomItem;
+    public void setNomArticle(String nomArticle) {
+        this.nomArticle = nomArticle;
     }
 
     public VoyageEntity getVoyageEntity() {
@@ -58,12 +58,12 @@ public class ArticleEntity {
         this.voyageEntity = voyageEntity;
     }
 
-    public Long getIdIitem() {
-        return idIitem;
+    public Long getIdArticle() {
+        return idArticle;
     }
 
-    public void setIdIitem(Long idIitem) {
-        this.idIitem = idIitem;
+    public void setIdArticle(Long idArticle) {
+        this.idArticle = idArticle;
     }
 
 

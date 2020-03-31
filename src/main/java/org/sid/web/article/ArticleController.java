@@ -1,8 +1,8 @@
 package org.sid.web.article;
 
 import org.sid.entities.article.ArticleEntity;
-import org.sid.metier.article.ItemService;
-import org.sid.metier.voyage.TripService;
+import org.sid.metier.article.ArticleService;
+import org.sid.metier.voyage.VoyageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,45 +11,45 @@ import java.util.List;
 @RestController
 public class ArticleController {
     @Autowired
-    ItemService itemService;
+    ArticleService articleService;
     @Autowired
-    TripService tripService;
+    VoyageService voyageService;
 
     //Charger Tous les articles
     @CrossOrigin
-    @RequestMapping(value = "/allItems/{id}", method = RequestMethod.GET)
-    public List<ArticleEntity> AllItems(@PathVariable Long id) {
-        return itemService.recupererTousLesArticlesDuVoyage(id);
+    @RequestMapping(value = "/tousArticle/{id}", method = RequestMethod.GET)
+    public List<ArticleEntity> recupererTousLesArticlesDuVoyageWS(@PathVariable Long idVoyage) {
+        return articleService.recupererTousLesArticlesDuVoyage(idVoyage);
     }
 
     //Charger un article spécifique
-    @RequestMapping(value = "/oneItem/{id}", method = RequestMethod.GET)
-    public ArticleEntity getItem(@PathVariable Long id) {
-        return itemService.recupererUnArticleApartirDeSonId(id);
+    @RequestMapping(value = "/unArticle/{id}", method = RequestMethod.GET)
+    public ArticleEntity recupererUnArticleApartirDeSonIdWS(@PathVariable Long idArticle) {
+        return articleService.recupererUnArticleApartirDeSonId(idArticle);
     }
 
     // Ajouter un article aux favori
     @CrossOrigin
-    @RequestMapping(value = "/oneItem/{idItem}", method = RequestMethod.PUT)
-    public ArticleEntity updateItem(@PathVariable Long idItem, @RequestBody ArticleEntity itemT) {
+    @RequestMapping(value = "/unArticle/{idArticle}", method = RequestMethod.PUT)
+    public ArticleEntity mettreAjourUnArticleDuVoyageWS(@PathVariable Long idArticle, @RequestBody ArticleEntity articleEntity) {
 
-        return itemService.mettreAjourUnArticleDuVoyage(idItem, itemT);
+        return articleService.mettreAjourUnArticleDuVoyage(idArticle, articleEntity);
 
     }
 
 
     //supprimer un article
     @CrossOrigin
-    @RequestMapping(value = "/oneItem/{id}", method = RequestMethod.DELETE)
-    public void deleteItem(@PathVariable Long id) {
-        itemService.supprimerUnArticleApartIdVoyage(id);
+    @RequestMapping(value = "/unArticle/{id}", method = RequestMethod.DELETE)
+    public void supprimerUnArticleApartIdVoyageWS(@PathVariable Long idVoyage) {
+        articleService.supprimerUnArticleApartIdVoyage(idVoyage);
     }
 
     //Ajouter un article
     @CrossOrigin
-    @RequestMapping(value = "/oneItem/{id}", method = RequestMethod.POST)
-    public ArticleEntity addItem(@RequestBody ArticleEntity item, @PathVariable Long id) {
-        return itemService.ajouterUnArticleDuVoyage(item, id);
+    @RequestMapping(value = "/unArticle/{id}", method = RequestMethod.POST)
+    public ArticleEntity ajouterUnArticleDuVoyage(@RequestBody ArticleEntity articleEntity, @PathVariable Long id) {
+        return articleService.ajouterUnArticleDuVoyage(articleEntity, id);
     }
 
 }

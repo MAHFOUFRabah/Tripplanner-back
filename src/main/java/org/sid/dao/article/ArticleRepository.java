@@ -8,6 +8,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface ArticleRepository extends JpaRepository<ArticleEntity, Long> {
-    @Query("select o from Item o where o.trip.idTrip=:x")
+    @Query("select o from Article o where o.voyage.idVoyage=:x")
     List<ArticleEntity> recupereTousLesArticleDuVoyageRepository(@Param("x") Long idVoyage);
 }

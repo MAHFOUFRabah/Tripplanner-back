@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-public class TripServiceImpl implements TripService {
+public class VoyageServiceImpl implements VoyageService {
 
     @Autowired
     private VoyageRepository tripRepository;
@@ -23,7 +23,7 @@ public class TripServiceImpl implements TripService {
 
     @Override
     public VoyageEntity ajouterUnNouveauVoyage(VoyageEntity trip) {
-        return tripRepository.save(new VoyageEntity(trip.getNomTrip()));
+        return tripRepository.save(new VoyageEntity(trip.getNomVoyage()));
     }
 
     @Override
@@ -34,7 +34,7 @@ public class TripServiceImpl implements TripService {
 
     public VoyageEntity mettreAjourUnVoyage(Long id, VoyageEntity tripT) {
         VoyageEntity trip = tripRepository.findById(id).orElse(null);
-        trip.setNomTrip(tripT.getNomTrip());
+        trip.setNomVoyage(tripT.getNomVoyage());
 
         return tripRepository.save(trip);
     }

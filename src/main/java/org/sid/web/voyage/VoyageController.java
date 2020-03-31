@@ -1,8 +1,8 @@
 package org.sid.web.voyage;
 
 import org.sid.entities.voyage.VoyageEntity;
-import org.sid.metier.article.ItemService;
-import org.sid.metier.voyage.TripService;
+import org.sid.metier.article.ArticleService;
+import org.sid.metier.voyage.VoyageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,44 +11,44 @@ import java.util.List;
 @RestController
 public class VoyageController {
     @Autowired
-    ItemService itemService;
+    ArticleService articleService;
     @Autowired
-    TripService tripService;
+    VoyageService voyageService;
 
     // Charger tous les voyages
     @CrossOrigin
     @RequestMapping(value = "/allTrips", method = RequestMethod.GET)
-    public List<VoyageEntity> AllTrip() {
-        return tripService.recupererTousLesVoyagesDeUtilisateur();
+    public List<VoyageEntity> recupererTousLesVoyagesDeUtilisateurWS() {
+        return voyageService.recupererTousLesVoyagesDeUtilisateur();
     }
 
     //Charger un voyage spécifique
     @CrossOrigin
     @RequestMapping(value = "/oneTrip/{id}", method = RequestMethod.GET)
-    public VoyageEntity getTrip(@PathVariable Long id) {
-        return tripService.recupererUnVoyageApartirDeId(id);
+    public VoyageEntity recupererUnVoyageApartirDeIdWS(@PathVariable Long id) {
+        return voyageService.recupererUnVoyageApartirDeId(id);
     }
 
     //Ajouter un voyage
     @CrossOrigin
     @RequestMapping(value = "/oneTrip", method = RequestMethod.POST)
-    public VoyageEntity addTrip(@RequestBody VoyageEntity trip) {
-        return tripService.ajouterUnNouveauVoyage(trip);
+    public VoyageEntity ajouterUnNouveauVoyageWS(@RequestBody VoyageEntity trip) {
+        return voyageService.ajouterUnNouveauVoyage(trip);
     }
 
     // Supprimer un voyage
     @CrossOrigin
     @RequestMapping(value = "/oneTrip/{id}", method = RequestMethod.DELETE)
-    public void deleteTrip(@PathVariable Long id) {
-        tripService.supprimerUnVoyageApartirDeId(id);
+    public void supprimerUnVoyageApartirDeIdWS(@PathVariable Long id) {
+        voyageService.supprimerUnVoyageApartirDeId(id);
     }
 
 
     //mettre à jour le nom d'un voyage
     @RequestMapping(value = "/oneTrip/{id}", method = RequestMethod.PUT)
-    public VoyageEntity updateTrip(@PathVariable Long id, @RequestBody VoyageEntity tripT) {
+    public VoyageEntity mettreAjourUnVoyageWS(@PathVariable Long id, @RequestBody VoyageEntity tripT) {
 
-        return tripService.mettreAjourUnVoyage(id, tripT);
+        return voyageService.mettreAjourUnVoyage(id, tripT);
 
     }
 }

@@ -9,12 +9,12 @@ import java.util.Random;
 @Entity
 public class VoyageEntity {
     @Id
-    @Column(name = "id_trip")
+    @Column(name = "id_voyage")
     @GeneratedValue
-    private Long idTrip;
+    private Long idVoyage;
 
-    @Column(name = "nom_trip")
-    private String nomTrip;
+    @Column(name = "nom_voyage")
+    private String nomVoyage;
 
     @Column(name = "code_barre")
     private String codeBarre;
@@ -28,26 +28,26 @@ public class VoyageEntity {
         super();
     }
 
-    public VoyageEntity(String nomTrip) {
+    public VoyageEntity(String nomVoyage) {
         super();
-        this.nomTrip = nomTrip;
+        this.nomVoyage = nomVoyage;
         this.codeBarre = this.GenerateCodeBarre();
     }
 
-    public Long getIdTrip() {
-        return idTrip;
+    public Long getIdVoyage() {
+        return idVoyage;
     }
 
-    public void setIdTrip(Long idTrip) {
-        this.idTrip = idTrip;
+    public void setIdVoyage(Long idVoyage) {
+        this.idVoyage = idVoyage;
     }
 
-    public String getNomTrip() {
-        return this.nomTrip;
+    public String getNomVoyage() {
+        return this.nomVoyage;
     }
 
-    public void setNomTrip(String nomTrip) {
-        this.nomTrip = nomTrip;
+    public void setNomVoyage(String nomVoyage) {
+        this.nomVoyage = nomVoyage;
     }
 
 	/*public Collection<Item> getItems() {
