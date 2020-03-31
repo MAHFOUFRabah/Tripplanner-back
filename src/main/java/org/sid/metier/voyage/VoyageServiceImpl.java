@@ -13,12 +13,18 @@ public class VoyageServiceImpl implements VoyageService {
 
     @Override
     public List<VoyageEntity> recupererTousLesVoyagesDeUtilisateur() {
+
         return tripRepository.findAll();
     }
 
     @Override
     public VoyageEntity recupererUnVoyageApartirDeId(Long id) {
-        return tripRepository.findById(id).orElse(null);
+
+        VoyageEntity voyageEntity = this.recupererUnVoyageApartirDeId(id);
+        if (voyageEntity == null) {
+            throw new RuntimeException("l'élement n'a été correctement supprimé !");
+        }
+        return  voyageEntity;
     }
 
     @Override
@@ -28,14 +34,26 @@ public class VoyageServiceImpl implements VoyageService {
 
     @Override
     public void supprimerUnVoyageApartirDeId(Long id) {
+
         tripRepository.deleteById(id);
+
+
     }
 
 
+    @Override
     public VoyageEntity mettreAjourUnVoyage(Long id, VoyageEntity tripT) {
-        VoyageEntity trip = tripRepository.findById(id).orElse(null);
-        trip.setNomVoyage(tripT.getNomVoyage());
-
-        return tripRepository.save(trip);
+        VoyageEntity nouveauVoyageEntity;
+        VoyageEntity voyageEntity = tripRepository.findById(id).orElse(null);
+        if (voyageEntity == null) {
+            throw new RuntimeException("Aucun voyage n'a été remonté");
+        } else {
+            voyageEntity.setNomVoyage(tripT.getNomVoyage());
+            nouveauVoyageEntity = tripRepository.save(voyageEntity);
+        }
+        return nouveauVoyageEntity;
     }
+
+
+
 }

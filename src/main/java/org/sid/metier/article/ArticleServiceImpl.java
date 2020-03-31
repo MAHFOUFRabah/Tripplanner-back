@@ -26,9 +26,17 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public ArticleEntity ajouterUnArticleDuVoyage(ArticleEntity articleEntity, Long idVoyage) {
+        ArticleEntity articleEntityModifie;
         VoyageEntity voyageEntity = voyageRepository.findById(idVoyage).orElse(null);
-        articleEntity.setVoyageEntity(voyageEntity);
-        return articleRepository.save(articleEntity);
+        if(voyageEntity == null) {
+           throw new RuntimeException("Aucun voyage n'a été remonté");
+        }
+        else {
+            articleEntity.setVoyageEntity(voyageEntity);
+            articleEntityModifie = articleRepository.save(articleEntity);
+        }
+        return articleEntityModifie;
+
     }
 
     @Override
