@@ -1,8 +1,9 @@
-package org.sid.web.voyage;
+package org.sid.web;
 
-import org.sid.entities.voyage.VoyageEntity;
-import org.sid.metier.article.ArticleService;
-import org.sid.metier.voyage.VoyageService;
+import org.sid.entities.VoyageEntity;
+import org.sid.metier.ArticleService;
+import org.sid.metier.UserService;
+import org.sid.metier.VoyageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,19 +15,22 @@ public class VoyageController {
     ArticleService articleService;
     @Autowired
     VoyageService voyageService;
+    @Autowired
+    UserService userService;
 
     // Charger tous les voyages
     @CrossOrigin
-    @RequestMapping(value = "/allTrips", method = RequestMethod.GET)
-    public List<VoyageEntity> recupererTousLesVoyagesDeUtilisateurWS() {
-        return voyageService.recupererTousLesVoyagesDeUtilisateur();
+    @RequestMapping(value = "/allTrips/{username}", method = RequestMethod.GET)
+    public List<VoyageEntity> recupererTousLesVoyagesDeUtilisateurWS(@PathVariable String username) {
+
+        return voyageService.recupererTousLesVoyagesDeUtilisateur(username);
     }
 
     //Charger un voyage spécifique
     @CrossOrigin
-    @RequestMapping(value = "/oneTrip/{id}", method = RequestMethod.GET)
-    public VoyageEntity recupererUnVoyageApartirDeIdWS(@PathVariable Long id) {
-        return voyageService.recupererUnVoyageApartirDeId(id);
+    @RequestMapping(value = "/oneTrip/{idVoyage}", method = RequestMethod.GET)
+    public VoyageEntity recupererUnVoyageApartirDeIdWS(@PathVariable Long idVoyage) {
+        return voyageService.recupererUnVoyageApartirDeId(idVoyage);
     }
 
     //Ajouter un voyage

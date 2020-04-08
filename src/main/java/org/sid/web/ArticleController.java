@@ -1,8 +1,9 @@
-package org.sid.web.article;
+package org.sid.web;
 
-import org.sid.entities.article.ArticleEntity;
-import org.sid.metier.article.ArticleService;
-import org.sid.metier.voyage.VoyageService;
+import org.sid.entities.ArticleEntity;
+import org.sid.metier.ArticleService;
+import org.sid.metier.UserService;
+import org.sid.metier.VoyageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,16 +11,20 @@ import java.util.List;
 
 @RestController
 public class ArticleController {
+
     @Autowired
-    ArticleService articleService;
+    UserService userService;
     @Autowired
-    VoyageService voyageService;
+    private ArticleService articleService;
+    @Autowired
+    private VoyageService voyageService;
 
     //Charger Tous les articles
     @CrossOrigin
-    @RequestMapping(value = "/tousArticle/{id}", method = RequestMethod.GET)
-    public List<ArticleEntity> recupererTousLesArticlesDuVoyageWS(@PathVariable Long idVoyage) {
-        return articleService.recupererTousLesArticlesDuVoyage(idVoyage);
+    @RequestMapping(value = "/tousArticle/{idVoyage}/{username}", method = RequestMethod.GET)
+    public List<ArticleEntity> recupererTousLesArticlesDuVoyageWS(@PathVariable Long idVoyage, @PathVariable String username) {
+
+        return articleService.recupererTousLesArticlesDuVoyage(idVoyage,username);
     }
 
     //Charger un article spécifique
@@ -30,10 +35,10 @@ public class ArticleController {
 
     // Ajouter un article aux favori
     @CrossOrigin
-    @RequestMapping(value = "/unArticle/{idArticle}", method = RequestMethod.PUT)
-    public ArticleEntity mettreAjourUnArticleDuVoyageWS(@PathVariable Long idArticle, @RequestBody ArticleEntity articleEntity) {
-
-        return articleService.mettreAjourUnArticleDuVoyage(idArticle, articleEntity);
+    @RequestMapping(value = "/unArticle/{idArticle}/{username}", method = RequestMethod.PUT)
+    public ArticleEntity mettreAjourUnArticleDuVoyageWS(@PathVariable Long idArticle, @RequestBody ArticleEntity articleEntity,
+                                                        @PathVariable String username) {
+        return articleService.mettreAjourUnArticleDuVoyage(idArticle, articleEntity, username);
 
     }
 

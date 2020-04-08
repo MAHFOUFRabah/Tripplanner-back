@@ -1,13 +1,17 @@
 package org.sid;
 
-import org.sid.dao.article.ArticleRepository;
-import org.sid.dao.voyage.VoyageRepository;
-import org.sid.entities.article.ArticleEntity;
-import org.sid.entities.voyage.VoyageEntity;
+import org.sid.dao.ArticleRepository;
+import org.sid.dao.UserRepository;
+import org.sid.dao.VoyageRepository;
+import org.sid.entities.ArticleEntity;
+import org.sid.entities.UserEntity;
+import org.sid.entities.VoyageEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import java.util.UUID;
 
 @SpringBootApplication
 public class ServiceCatalogueApplication implements CommandLineRunner {
@@ -17,6 +21,9 @@ public class ServiceCatalogueApplication implements CommandLineRunner {
     @Autowired
     private ArticleRepository itemRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
 
     public static void main(String[] args) {
         SpringApplication.run(ServiceCatalogueApplication.class, args);
@@ -24,13 +31,20 @@ public class ServiceCatalogueApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-
-        VoyageEntity trip1 = tripRepository.save(new VoyageEntity("USA TRIP"));
+        String idFonctionnel = UUID.randomUUID().toString();
+        VoyageEntity voy1 = new VoyageEntity("USA TRIP");
+        voy1.setAppartientA(idFonctionnel);
+        VoyageEntity trip1 = tripRepository.save(voy1);
         VoyageEntity trip2 = tripRepository.save(new VoyageEntity("EU TRIP"));
         ArticleEntity item1 = itemRepository.save(new ArticleEntity("Papiers", trip1));
         ArticleEntity item2 = itemRepository.save(new ArticleEntity("Chargeurs", trip1));
         ArticleEntity item3 = itemRepository.save(new ArticleEntity("Papiers", trip2));
         ArticleEntity item4 = itemRepository.save(new ArticleEntity("Chargeurs", trip2));
+        UserEntity userEntity = new UserEntity();
+        userEntity.setIdFonctionnelUser(idFonctionnel);
+        userEntity.setUsername("admin");
+        userRepository.save(userEntity).getIdFonctionnelUser();
+
         System.out.println("l'application a démarré !!!");
 
     }

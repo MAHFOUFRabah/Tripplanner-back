@@ -1,12 +1,12 @@
-package org.sid.metier.article;
+package org.sid.metier;
 
-import org.sid.entities.article.ArticleEntity;
+import org.sid.entities.ArticleEntity;
 
 import java.util.List;
 
 public interface ArticleService {
 
-    List<ArticleEntity> recupererTousLesArticlesDuVoyage(Long idVoyage);
+    List<ArticleEntity> recupererTousLesArticlesDuVoyage(Long idVoyage,String username);
 
     ArticleEntity recupererUnArticleApartirDeSonId(Long idArticle);
 
@@ -14,5 +14,5 @@ public interface ArticleService {
 
     void supprimerUnArticleApartIdVoyage(Long idVoyage);
 
-    ArticleEntity mettreAjourUnArticleDuVoyage(Long idArticle, ArticleEntity article);
+    ArticleEntity mettreAjourUnArticleDuVoyage(Long idArticle, ArticleEntity article, String username);
 }

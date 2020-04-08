@@ -1,20 +1,27 @@
-package org.sid.metier.voyage;
+package org.sid.metier.impl;
 
-import org.sid.dao.voyage.VoyageRepository;
-import org.sid.entities.voyage.VoyageEntity;
+import org.sid.dao.VoyageRepository;
+import org.sid.entities.VoyageEntity;
+import org.sid.metier.UserService;
+import org.sid.metier.VoyageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class VoyageServiceImpl implements VoyageService {
 
     @Autowired
     private VoyageRepository tripRepository;
+    @Autowired
+    private UserService userService;
 
     @Override
-    public List<VoyageEntity> recupererTousLesVoyagesDeUtilisateur() {
+    public List<VoyageEntity> recupererTousLesVoyagesDeUtilisateur(String username) {
+        String idFontionnel = userService.recupererUserApartirUsername(username).getIdFonctionnelUser();
 
-        return tripRepository.findAll();
+        return tripRepository.findByAppartientA(idFontionnel);
     }
 
     @Override
@@ -24,7 +31,7 @@ public class VoyageServiceImpl implements VoyageService {
         if (voyageEntity == null) {
             throw new RuntimeException("l'élement n'a été correctement supprimé !");
         }
-        return  voyageEntity;
+        return voyageEntity;
     }
 
     @Override
@@ -53,7 +60,6 @@ public class VoyageServiceImpl implements VoyageService {
         }
         return nouveauVoyageEntity;
     }
-
 
 
 }

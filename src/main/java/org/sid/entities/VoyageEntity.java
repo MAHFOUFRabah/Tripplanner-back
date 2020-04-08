@@ -1,9 +1,9 @@
-package org.sid.entities.voyage;
+package org.sid.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import javax.persistence.*;
+import java.util.Collection;
 import java.util.Random;
 
 @Entity
@@ -18,11 +18,14 @@ public class VoyageEntity {
 
     @Column(name = "code_barre")
     private String codeBarre;
-	
-	
-	/*@JsonManagedReference
-	@OneToMany(mappedBy="trip",fetch=FetchType.LAZY)
-	private Collection<Item> items;*/
+
+    @Column(name = "appartient_a")
+    private String appartientA;
+
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "voyageEntity", fetch = FetchType.LAZY)
+    private Collection<ArticleEntity> items;
 
     public VoyageEntity() {
         super();
@@ -84,5 +87,11 @@ public class VoyageEntity {
         return generatedString;
     }
 
+    public String getAppartientA() {
+        return appartientA;
+    }
 
+    public void setAppartientA(String appartientA) {
+        this.appartientA = appartientA;
+    }
 }

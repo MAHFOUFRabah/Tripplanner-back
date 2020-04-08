@@ -1,7 +1,6 @@
-package org.sid.entities.article;
+package org.sid.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import org.sid.entities.voyage.VoyageEntity;
 
 import javax.persistence.*;
 
@@ -15,11 +14,14 @@ public class ArticleEntity {
     @Column(name = "nom_article")
     private String nomArticle;
 
-    @Column(name = "belongs_to")
-    private String belongsTo;
+    @Column(name = "appartient_a")
+    private String appartientA;
+
+
+    private Boolean estFavoris;
 
     @JsonBackReference
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CODE_VOYAGE")
     private VoyageEntity voyageEntity;
 
@@ -34,12 +36,12 @@ public class ArticleEntity {
         super();
     }
 
-    public String getBelongsTo() {
-        return belongsTo;
+    public String getAppartientA() {
+        return appartientA;
     }
 
-    public void setBelongsTo(String belongsTo) {
-        this.belongsTo = belongsTo;
+    public void setAppartientA(String appartientA) {
+        this.appartientA = appartientA;
     }
 
     public String getNomArticle() {
@@ -66,5 +68,11 @@ public class ArticleEntity {
         this.idArticle = idArticle;
     }
 
+    public Boolean getEstFavoris() {
+        return estFavoris;
+    }
 
+    public void setEstFavoris(Boolean estFavoris) {
+        this.estFavoris = estFavoris;
+    }
 }
