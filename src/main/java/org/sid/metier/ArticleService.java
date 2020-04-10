@@ -14,5 +14,5 @@ public interface ArticleService {
 
     void supprimerUnArticleApartIdVoyage(Long idVoyage);
 
-    ArticleEntity mettreAjourUnArticleDuVoyage(Long idArticle, ArticleEntity article, String username);
+    ArticleEntity ajouterUnArticleAuFavoris(Long idArticle, String username);
 }

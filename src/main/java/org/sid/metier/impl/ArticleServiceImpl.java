@@ -27,7 +27,7 @@ public class ArticleServiceImpl implements ArticleService {
         List<ArticleEntity> listArticleEntity = new CopyOnWriteArrayList<>(articleRepository.recupereTousLesArticleDuVoyageRepository(idVoyage));
         UserEntity userEntity = userService.recupererUserApartirUsername(username);
         for(ArticleEntity article:listArticleEntity){
-            if(article.getAppartientA().equals(userEntity.getIdFonctionnelUser())){
+            if(userEntity.getIdFonctionnelUser().equals(article.getAppartientA())){
                 article.setEstFavoris(true);
                 listArticleEntity.set(listArticleEntity.indexOf(article),article);
             }
@@ -60,12 +60,10 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public ArticleEntity mettreAjourUnArticleDuVoyage(Long idArticle, ArticleEntity articleEntity, String username) {
+    public ArticleEntity ajouterUnArticleAuFavoris(Long idArticle, String username) {
         ArticleEntity articleRecupere = articleRepository.findById(idArticle).orElse(null);
-        System.out.println(articleEntity.getAppartientA());
-        articleRecupere.setAppartientA(articleEntity.getAppartientA());
         UserEntity userEntity = userService.recupererUserApartirUsername(username);
-        articleEntity.setAppartientA(userEntity.getIdFonctionnelUser());
+        articleRecupere.setAppartientA(userEntity.getIdFonctionnelUser());
         return articleRepository.save(articleRecupere);
     }
 }

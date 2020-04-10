@@ -1,6 +1,7 @@
 package org.sid.metier.impl;
 
 import org.sid.dao.VoyageRepository;
+import org.sid.entities.UserEntity;
 import org.sid.entities.VoyageEntity;
 import org.sid.metier.UserService;
 import org.sid.metier.VoyageService;
@@ -21,13 +22,13 @@ public class VoyageServiceImpl implements VoyageService {
     public List<VoyageEntity> recupererTousLesVoyagesDeUtilisateur(String username) {
         String idFontionnel = userService.recupererUserApartirUsername(username).getIdFonctionnelUser();
 
-        return tripRepository.findByAppartientA(idFontionnel);
+        return tripRepository.recupereTousLesVoyageDeUser(idFontionnel);
     }
 
     @Override
     public VoyageEntity recupererUnVoyageApartirDeId(Long id) {
 
-        VoyageEntity voyageEntity = this.recupererUnVoyageApartirDeId(id);
+        VoyageEntity voyageEntity = this.tripRepository.findById(id).orElse(null);
         if (voyageEntity == null) {
             throw new RuntimeException("l'élement n'a été correctement supprimé !");
         }
@@ -35,8 +36,11 @@ public class VoyageServiceImpl implements VoyageService {
     }
 
     @Override
-    public VoyageEntity ajouterUnNouveauVoyage(VoyageEntity trip) {
-        return tripRepository.save(new VoyageEntity(trip.getNomVoyage()));
+    public VoyageEntity ajouterUnNouveauVoyage(VoyageEntity trip,String username) {
+        VoyageEntity voyageEntity =new VoyageEntity(trip.getNomVoyage());
+        UserEntity userEntity = userService.recupererUserApartirUsername(username);
+        voyageEntity.setAppartientA(userEntity.getIdFonctionnelUser());
+        return tripRepository.save(voyageEntity);
     }
 
     @Override

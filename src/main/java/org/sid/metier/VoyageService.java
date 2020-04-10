@@ -9,7 +9,7 @@ public interface VoyageService {
 
     VoyageEntity recupererUnVoyageApartirDeId(Long idVoyage);
 
-    VoyageEntity ajouterUnNouveauVoyage(VoyageEntity voyage);
+    VoyageEntity ajouterUnNouveauVoyage(VoyageEntity voyage, String username);
 
     void supprimerUnVoyageApartirDeId(Long idVoyage);
 

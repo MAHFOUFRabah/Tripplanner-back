@@ -28,7 +28,7 @@ public class ArticleController {
     }
 
     //Charger un article spécifique
-    @RequestMapping(value = "/unArticle/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/unArticle/{idArticle}", method = RequestMethod.GET)
     public ArticleEntity recupererUnArticleApartirDeSonIdWS(@PathVariable Long idArticle) {
         return articleService.recupererUnArticleApartirDeSonId(idArticle);
     }
@@ -36,18 +36,18 @@ public class ArticleController {
     // Ajouter un article aux favori
     @CrossOrigin
     @RequestMapping(value = "/unArticle/{idArticle}/{username}", method = RequestMethod.PUT)
-    public ArticleEntity mettreAjourUnArticleDuVoyageWS(@PathVariable Long idArticle, @RequestBody ArticleEntity articleEntity,
+    public ArticleEntity ajouterUnArticlAuFavorisWS(@PathVariable Long idArticle, @RequestBody ArticleEntity articleEntity,
                                                         @PathVariable String username) {
-        return articleService.mettreAjourUnArticleDuVoyage(idArticle, articleEntity, username);
+        return articleService.ajouterUnArticleAuFavoris(idArticle, username);
 
     }
 
 
     //supprimer un article
     @CrossOrigin
-    @RequestMapping(value = "/unArticle/{id}", method = RequestMethod.DELETE)
-    public void supprimerUnArticleApartIdVoyageWS(@PathVariable Long idVoyage) {
-        articleService.supprimerUnArticleApartIdVoyage(idVoyage);
+    @RequestMapping(value = "/unArticle/{idArticle}", method = RequestMethod.DELETE)
+    public void supprimerUnArticleApartDeSonIdWS(@PathVariable Long idArticle) {
+        articleService.supprimerUnArticleApartIdVoyage(idArticle);
     }
 
     //Ajouter un article

@@ -35,9 +35,9 @@ public class VoyageController {
 
     //Ajouter un voyage
     @CrossOrigin
-    @RequestMapping(value = "/oneTrip", method = RequestMethod.POST)
-    public VoyageEntity ajouterUnNouveauVoyageWS(@RequestBody VoyageEntity trip) {
-        return voyageService.ajouterUnNouveauVoyage(trip);
+    @RequestMapping(value = "/oneTrip/{username}", method = RequestMethod.POST)
+    public VoyageEntity ajouterUnNouveauVoyageWS(@RequestBody VoyageEntity trip, @PathVariable String username) {
+        return voyageService.ajouterUnNouveauVoyage(trip, username);
     }
 
     // Supprimer un voyage
