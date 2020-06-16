@@ -27,6 +27,8 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 
         // Autoriser Angular à envoyer des entêtes
         response.addHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "POST, PUT, GET, OPTIONS, DELETE");
+
         response.addHeader("Access-Control-Allow-Headers", "Origin, Accept, X-Request-With, "
                 + "Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, " + "authorization");
         response.addHeader("Access-Control-Expose-Headers",

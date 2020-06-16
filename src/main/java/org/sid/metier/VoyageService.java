@@ -1,6 +1,8 @@
 package org.sid.metier;
 
+import org.sid.entities.UserEntity;
 import org.sid.entities.VoyageEntity;
+import org.sid.metier.DTO.VoyageDTO;
 
 import java.util.List;
 
@@ -9,10 +11,12 @@ public interface VoyageService {
 
     VoyageEntity recupererUnVoyageApartirDeId(Long idVoyage);
 
-    VoyageEntity ajouterUnNouveauVoyage(VoyageEntity voyage, String username);
+    VoyageEntity ajouterUnNouveauVoyage(VoyageEntity trip, String username);
 
-    void supprimerUnVoyageApartirDeId(Long idVoyage);
+    void supprimerUnVoyageApartirDeId(String username, Long idVoyage);
 
     VoyageEntity mettreAjourUnVoyage(Long idVoyage, VoyageEntity voyageEntity);
+
+    UserEntity ajouterUnParticipantAuVoyage(String codeVoyage, String username);
 
 }

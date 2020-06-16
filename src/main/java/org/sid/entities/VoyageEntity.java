@@ -19,8 +19,9 @@ public class VoyageEntity {
     @Column(name = "code_barre")
     private String codeBarre;
 
-    @Column(name = "appartient_a")
-    private String appartientA;
+    @JsonManagedReference
+    @OneToMany(mappedBy = "voyageEntity", fetch = FetchType.LAZY)
+    private Collection<UserEntity> users;
 
 
     @JsonManagedReference
@@ -53,13 +54,6 @@ public class VoyageEntity {
         this.nomVoyage = nomVoyage;
     }
 
-	/*public Collection<Item> getItems() {
-		return items;
-	}
-
-	public void setItems(Collection<Item> items) {
-		this.items = items;
-	}*/
 
     public String getCodeBarre() {
         return codeBarre;
@@ -87,11 +81,19 @@ public class VoyageEntity {
         return generatedString;
     }
 
-    public String getAppartientA() {
-        return appartientA;
+    public Collection<UserEntity> getUsers() {
+        return users;
     }
 
-    public void setAppartientA(String appartientA) {
-        this.appartientA = appartientA;
+    public void setUsers(Collection<UserEntity> users) {
+        this.users = users;
+    }
+
+    public Collection<ArticleEntity> getItems() {
+        return items;
+    }
+
+    public void setItems(Collection<ArticleEntity> items) {
+        this.items = items;
     }
 }

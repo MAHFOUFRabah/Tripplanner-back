@@ -28,6 +28,7 @@ public class ArticleController {
     }
 
     //Charger un article spécifique
+    @CrossOrigin
     @RequestMapping(value = "/unArticle/{idArticle}", method = RequestMethod.GET)
     public ArticleEntity recupererUnArticleApartirDeSonIdWS(@PathVariable Long idArticle) {
         return articleService.recupererUnArticleApartirDeSonId(idArticle);
@@ -35,8 +36,8 @@ public class ArticleController {
 
     // Ajouter un article aux favori
     @CrossOrigin
-    @RequestMapping(value = "/unArticle/{idArticle}/{username}", method = RequestMethod.PUT)
-    public ArticleEntity ajouterUnArticlAuFavorisWS(@PathVariable Long idArticle, @RequestBody ArticleEntity articleEntity,
+    @RequestMapping(value = "/unArticleFavori/{idArticle}/{username}", method = RequestMethod.POST)
+    public ArticleEntity ajouterUnArticlAuFavorisWS(@PathVariable Long idArticle,
                                                         @PathVariable String username) {
         return articleService.ajouterUnArticleAuFavoris(idArticle, username);
 

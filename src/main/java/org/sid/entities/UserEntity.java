@@ -1,5 +1,7 @@
 package org.sid.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -12,6 +14,11 @@ public class UserEntity {
     private String username;
     @Column(name = "id_fonctionnel_user")
     private String idFonctionnelUser;
+
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.EAGER )
+    @JoinColumn(name = "CODE_VOYAGE")
+    private VoyageEntity voyageEntity;
 
     public Long getIdUser() {
         return idUser;
@@ -36,4 +43,22 @@ public class UserEntity {
     public void setIdFonctionnelUser(String idFonctionnelUser) {
         this.idFonctionnelUser = idFonctionnelUser;
     }
+
+    public UserEntity(String username, String idFonctionnelUser) {
+        this.username = username;
+        this.idFonctionnelUser = idFonctionnelUser;
+    }
+
+
+    public UserEntity() {
+    }
+
+    public VoyageEntity getVoyageEntity() {
+        return voyageEntity;
+    }
+
+    public void setVoyageEntity(VoyageEntity voyageEntity) {
+        this.voyageEntity = voyageEntity;
+    }
+
 }

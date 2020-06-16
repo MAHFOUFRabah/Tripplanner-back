@@ -32,9 +32,11 @@ public class ServiceCatalogueApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         String idFonctionnel = UUID.randomUUID().toString();
+        String idFonctionnel2 = UUID.randomUUID().toString();
+
         VoyageEntity voy1 = new VoyageEntity("USA TRIP");
-        voy1.setAppartientA(idFonctionnel);
-        VoyageEntity trip1 = tripRepository.save(voy1);
+
+       VoyageEntity trip1 = tripRepository.save(voy1);
         VoyageEntity trip2 = tripRepository.save(new VoyageEntity("EU TRIP"));
         ArticleEntity item1 = itemRepository.save(new ArticleEntity("Papiers", trip1));
         ArticleEntity item2 = itemRepository.save(new ArticleEntity("Chargeurs", trip1));
@@ -43,7 +45,15 @@ public class ServiceCatalogueApplication implements CommandLineRunner {
         UserEntity userEntity = new UserEntity();
         userEntity.setIdFonctionnelUser(idFonctionnel);
         userEntity.setUsername("admin");
+        userEntity.setVoyageEntity(trip1);
         userRepository.save(userEntity).getIdFonctionnelUser();
+
+
+        UserEntity userEntity2 = new UserEntity();
+        userEntity2.setIdFonctionnelUser(idFonctionnel2);
+        userEntity2.setUsername("user");
+        userEntity2.setVoyageEntity(trip1);
+        userRepository.save(userEntity2).getIdFonctionnelUser();
 
         System.out.println("l'application a démarré !!!");
 
