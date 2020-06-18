@@ -67,13 +67,13 @@ this.userService.supprimerUnUserParIdVoyage(idVoyage, username);
 
 
     @Override
-    public VoyageEntity mettreAjourUnVoyage(Long id, VoyageEntity tripT) {
+    public VoyageEntity mettreAjourUnVoyage(Long id, String nouveauNomDuVoyage) {
         VoyageEntity nouveauVoyageEntity;
         VoyageEntity voyageEntity = tripRepository.findById(id).orElse(null);
         if (voyageEntity == null) {
             throw new RuntimeException("Aucun voyage n'a été remonté");
         } else {
-            voyageEntity.setNomVoyage(tripT.getNomVoyage());
+            voyageEntity.setNomVoyage(nouveauNomDuVoyage);
             nouveauVoyageEntity = tripRepository.save(voyageEntity);
         }
         return nouveauVoyageEntity;

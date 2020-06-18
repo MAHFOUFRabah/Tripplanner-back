@@ -62,10 +62,10 @@ public class VoyageController {
 
 
     //mettre à jour le nom d'un voyage
-    @RequestMapping(value = "/oneTrip/{id}", method = RequestMethod.PUT)
-    public VoyageEntity mettreAjourUnVoyageWS(@PathVariable Long id, @RequestBody VoyageEntity tripT) {
+    @RequestMapping(value = "/oneTrip/{id}/{nouveauNomDuVoyage}", method = RequestMethod.PUT)
+    public VoyageEntity mettreAjourUnVoyageWS(@PathVariable Long id, @PathVariable String nouveauNomDuVoyage) {
 
-        return voyageService.mettreAjourUnVoyage(id, tripT);
+        return voyageService.mettreAjourUnVoyage(id, nouveauNomDuVoyage);
 
     }
 }

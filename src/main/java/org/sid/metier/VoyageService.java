@@ -15,7 +15,7 @@ public interface VoyageService {
 
     void supprimerUnVoyageApartirDeId(String username, Long idVoyage);
 
-    VoyageEntity mettreAjourUnVoyage(Long idVoyage, VoyageEntity voyageEntity);
+    VoyageEntity mettreAjourUnVoyage(Long idVoyage, String nouveauNomDuVoyage);
 
     UserEntity ajouterUnParticipantAuVoyage(String codeVoyage, String username);
 
